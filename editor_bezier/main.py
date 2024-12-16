@@ -1,36 +1,37 @@
 import pygame
-import sys
+from interface import Interface
+from curve_editor import CurveEditor
+from events import handle_events
+
+# Configurações iniciais
+LARGURA_TELA = 800
+ALTURA_TELA = 600
 
 
 def main():
-    # Inicializa o Pygame
     pygame.init()
-
-    # Configurações da janela
-    WIDTH, HEIGHT = 800, 600
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    tela = pygame.display.set_mode((LARGURA_TELA, ALTURA_TELA))
     pygame.display.set_caption("Editor de Curvas de Bézier")
+    clock = pygame.time.Clock()
 
-    # Cores
-    WHITE = (255, 255, 255)
-    BLACK = (0, 0, 0)
+    # Inicializar módulos
+    interface = Interface(tela, LARGURA_TELA, ALTURA_TELA)
+    editor = CurveEditor(interface)
 
-    # Loop principal
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
+    rodando = True
+    while rodando:
+        # Capturar e tratar eventos
+        rodando = handle_events(editor)
 
-        # Preenche o fundo
-        screen.fill(WHITE)
+        # Atualizar e renderizar
+        interface.render()
+        editor.render_curve()
 
-        # Atualiza a tela
+        # Atualizar display
         pygame.display.flip()
+        clock.tick(60)  # Limitar FPS
 
-    # Finaliza o Pygame
     pygame.quit()
-    sys.exit()
 
 
 if __name__ == "__main__":
