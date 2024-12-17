@@ -23,6 +23,15 @@ class Botao:
         if self.acao:
             self.acao()
 
+    def atualizar(self, texto=None, cor_fundo=None, cor_texto=None):
+        """Atualiza propriedades do botão."""
+        if texto is not None:
+            self.texto = texto
+        if cor_fundo is not None:
+            self.cor_fundo = cor_fundo
+        if cor_texto is not None:
+            self.cor_texto = cor_texto
+
 
 class Interface:
     def __init__(self, tela, largura_tela, altura_tela):

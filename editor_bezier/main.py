@@ -22,8 +22,12 @@ def main():
     def limpar_pontos():
         editor.pontos_controle.clear()
 
-    def habilitar_remover_ponto():
+    def alternar_modo_remover():
         editor.modo_remover = not editor.modo_remover
+        if editor.modo_remover:
+            botao_remover.atualizar(texto="Modo Remoção ON", cor_fundo=(200, 50, 50))
+        else:
+            botao_remover.atualizar(texto="Remover Ponto", cor_fundo=(50, 150, 200))
 
     # Criar botões
     botao_limpar = Botao(
@@ -37,7 +41,7 @@ def main():
         "Remover Ponto",
         (50, 150, 200),
         (255, 255, 255),
-        habilitar_remover_ponto,
+        alternar_modo_remover,
     )
 
     interface.adicionar_botao(botao_limpar)
