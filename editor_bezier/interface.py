@@ -48,11 +48,11 @@ class Interface:
         self.tela = tela
         self.largura_tela = largura_tela
         self.altura_tela = altura_tela
-        self.largura_area_desenho = int(largura_tela * 0.75)
+        self.largura_area_desenho = int(largura_tela * 0.65)
         self.cor_fundo = (30, 30, 30)
         self.cor_area_desenho = (50, 50, 50)
         self.cor_area_controle = (20, 20, 20)
-        self.fonte = pygame.font.Font(None, 36)
+        self.fonte = pygame.font.Font(None, 24)
 
         # Lista de botões
         self.botoes = []

@@ -69,10 +69,14 @@ Este projeto é um editor interativo de curvas de Bézier desenvolvido em Python
 editor_bezier/
 ├── editor_bezier/
 │   ├── __init__.py
-│   └── main.py        # Arquivo principal com a lógica do editor
-├── tests/             # Arquivos de testes futuros
-├── pyproject.toml     # Configuração do projeto para Poetry
-└── README.md          # Este arquivo
+|   ├── curve_editor.py # Arquivo contendo o editor de curva
+|   ├── events.py       # Arquivo contendo o gerenciamento de eventos
+|   ├── interface.py    # Arquivo contendo a lógica da interface
+│   ├── main.py         # Arquivo principal com a lógica do editor
+|   └── utils.py        # Arquivo de funções auxiliares
+├── tests/              # Arquivos de testes futuros
+├── pyproject.toml      # Configuração do projeto para Poetry
+└── README.md           # Este arquivo
 ```
 
 ## Como usar o editor

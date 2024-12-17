@@ -8,6 +8,7 @@ class CurveEditor:
         self.modo_remover = False
         self.modo_mover = False
         self.ponto_selecionado = None  # Armazena o índice do ponto sendo movido
+        self.mostrar_poligono = True  # Controla a visibilidade do polígono de controle
         self.cor_curva = (255, 255, 0)
         self.cor_pontos = (255, 0, 0)
         self.cor_linhas = (100, 100, 100)
@@ -37,14 +38,24 @@ class CurveEditor:
         """Libera o ponto após o movimento."""
         self.ponto_selecionado = None
 
+    def alternar_poligono(self, botao=None):
+        """Alterna a visibilidade do polígono de controle e atualiza o texto do botão."""
+        self.mostrar_poligono = not self.mostrar_poligono
+        if botao:
+            novo_texto = (
+                "Mostrar Polígono" if not self.mostrar_poligono else "Ocultar Polígono"
+            )
+            botao.texto = novo_texto
+
     def render_curve(self):
         tela = self.interface.tela
+
         # Desenhar pontos de controle
         for ponto in self.pontos_controle:
             pygame.draw.circle(tela, self.cor_pontos, ponto, 5)
 
         # Desenhar linhas de controle
-        if len(self.pontos_controle) > 1:
+        if self.mostrar_poligono and len(self.pontos_controle) > 1:
             pygame.draw.lines(tela, self.cor_linhas, False, self.pontos_controle, 1)
 
         # Renderizar curva (usar algoritmo de De Casteljau ou interpolação)
