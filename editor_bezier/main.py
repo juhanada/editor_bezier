@@ -40,11 +40,11 @@ def main():
 
     # Criar botões
     botao_limpar = Botao(
-        560, 100, 200, 40, "Limpar", (200, 50, 50), (255, 255, 255), limpar_pontos
+        560, 60, 200, 40, "Limpar", (200, 50, 50), (255, 255, 255), limpar_pontos
     )
     botao_remover = Botao(
         560,
-        160,
+        120,
         200,
         40,
         "Remover Ponto",
@@ -54,7 +54,7 @@ def main():
     )
     botao_mover = Botao(
         560,
-        220,
+        180,
         200,
         40,
         "Mover Ponto",
@@ -65,7 +65,7 @@ def main():
     # Adicionar botão para alternar a visibilidade do polígono
     botao_alternar_poligono = Botao(
         560,
-        280,
+        240,
         200,
         40,
         texto="Ocultar Polígono",
@@ -85,7 +85,7 @@ def main():
         rodando = handle_events(editor, interface)
 
         # Atualizar e renderizar
-        interface.render()
+        interface.render(editor.pontos_controle)
         editor.render_curve()
 
         # Atualizar display

@@ -60,7 +60,7 @@ class Interface:
     def adicionar_botao(self, botao):
         self.botoes.append(botao)
 
-    def render(self):
+    def render(self, pontos=None):
         # Desenhar áreas
         self.tela.fill(self.cor_fundo)
         pygame.draw.rect(
@@ -86,9 +86,20 @@ class Interface:
         for botao in self.botoes:
             botao.desenhar(self.tela)
 
+        # Renderizar lista de pontos, se fornecida
+        if pontos is not None:
+            self.render_pontos(pontos)
+
     def render_text(self, texto, x, y, cor=(200, 200, 200)):
         texto_renderizado = self.fonte.render(texto, True, cor)
         self.tela.blit(texto_renderizado, (x, y))
+
+    def render_pontos(self, pontos):
+        """Renderiza a lista de pontos de controle no painel direito."""
+        self.render_text("Pontos de Controle:", self.largura_area_desenho + 20, 320)
+        for i, (x, y) in enumerate(pontos):
+            texto_ponto = f"{i + 1}: ({x}, {y})"
+            self.render_text(texto_ponto, self.largura_area_desenho + 20, 360 + i * 20)
 
     def handle_event(self, event, pos):
         """Processa eventos e verifica se algum botão foi clicado."""
