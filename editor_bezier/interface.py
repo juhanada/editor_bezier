@@ -4,11 +4,21 @@ import pygame
 class Botao:
     def __init__(self, x, y, largura, altura, texto, cor_fundo, cor_texto, acao):
         self.rect = pygame.Rect(x, y, largura, altura)
+        self.x = x
+        self.y = y
+        self.largura = largura
+        self.altura = altura
         self.texto = texto
         self.cor_fundo = cor_fundo
         self.cor_texto = cor_texto
         self.acao = acao
         self.fonte = pygame.font.Font(None, 30)
+
+    def is_hovered(self, pos):
+        return (
+            self.x <= pos[0] <= self.x + self.largura
+            and self.y <= pos[1] <= self.y + self.altura
+        )
 
     def desenhar(self, tela):
         pygame.draw.rect(tela, self.cor_fundo, self.rect)
@@ -38,7 +48,7 @@ class Interface:
         self.tela = tela
         self.largura_tela = largura_tela
         self.altura_tela = altura_tela
-        self.largura_area_desenho = int(largura_tela * 0.60)
+        self.largura_area_desenho = int(largura_tela * 0.75)
         self.cor_fundo = (30, 30, 30)
         self.cor_area_desenho = (50, 50, 50)
         self.cor_area_controle = (20, 20, 20)
@@ -79,3 +89,10 @@ class Interface:
     def render_text(self, texto, x, y, cor=(200, 200, 200)):
         texto_renderizado = self.fonte.render(texto, True, cor)
         self.tela.blit(texto_renderizado, (x, y))
+
+    def handle_event(self, event, pos):
+        """Processa eventos e verifica se algum botão foi clicado."""
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for botao in self.botoes:
+                if botao.is_hovered(pos):
+                    botao.acao()

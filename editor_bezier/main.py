@@ -29,6 +29,15 @@ def main():
         else:
             botao_remover.atualizar(texto="Remover Ponto", cor_fundo=(50, 150, 200))
 
+    def alternar_modo_mover():
+        editor.modo_mover = not editor.modo_mover
+        if editor.modo_mover:
+            botao_mover.atualizar(texto="Modo Mover ON", cor_fundo=(50, 200, 50))
+            editor.modo_remover = False  # Desativa o modo de remoção, se necessário
+            botao_remover.atualizar(texto="Remover Ponto", cor_fundo=(50, 150, 200))
+        else:
+            botao_mover.atualizar(texto="Mover Ponto", cor_fundo=(50, 150, 200))
+
     # Criar botões
     botao_limpar = Botao(
         620, 100, 150, 40, "Limpar", (200, 50, 50), (255, 255, 255), limpar_pontos
@@ -43,9 +52,20 @@ def main():
         (255, 255, 255),
         alternar_modo_remover,
     )
+    botao_mover = Botao(
+        620,
+        220,
+        150,
+        40,
+        "Mover Ponto",
+        (50, 150, 200),
+        (255, 255, 255),
+        alternar_modo_mover,
+    )
 
     interface.adicionar_botao(botao_limpar)
     interface.adicionar_botao(botao_remover)
+    interface.adicionar_botao(botao_mover)
 
     rodando = True
     while rodando:

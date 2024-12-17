@@ -2,24 +2,34 @@ import pygame
 
 
 def handle_events(editor, interface):
-    for evento in pygame.event.get():
-        if evento.type == pygame.QUIT:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             return False
-        elif evento.type == pygame.MOUSEBUTTONDOWN:
-            if evento.button == 1:  # Botão esquerdo
-                pos = evento.pos
 
-                # Verificar cliques nos botões
-                for botao in interface.botoes:
-                    if botao.verificar_clique(pos):
-                        botao.executar_acao()
-                        return True
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pos = pygame.mouse.get_pos()
 
-                # Adicionar ou remover ponto
-                if pos[0] < editor.interface.largura_area_desenho:
-                    if editor.modo_remover:
-                        editor.remover_ponto(pos[0], pos[1])
-                    else:
-                        editor.adicionar_ponto(pos[0], pos[1])
+            # Primeiro, verifica se o clique foi em algum botão
+            for botao in interface.botoes:
+                if botao.is_hovered(pos):
+                    interface.handle_event(event, pos)
+                    return True  # Interrompe aqui para evitar que o editor também processe o clique
+
+            # Se o clique não foi em um botão, processa no editor
+            if editor.modo_remover:
+                editor.remover_ponto(pos)
+            elif editor.modo_mover:
+                editor.selecionar_ponto(pos)
+            else:
+                editor.adicionar_ponto(pos[0], pos[1])
+
+        elif event.type == pygame.MOUSEMOTION:
+            if editor.modo_mover and editor.ponto_selecionado is not None:
+                pos = pygame.mouse.get_pos()
+                editor.mover_ponto(pos)
+
+        elif event.type == pygame.MOUSEBUTTONUP:
+            if editor.modo_mover:
+                editor.liberar_ponto()
 
     return True

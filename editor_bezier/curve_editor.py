@@ -5,7 +5,9 @@ class CurveEditor:
     def __init__(self, interface):
         self.interface = interface
         self.pontos_controle = []
-        self.modo_remover = False  # Novo atributo
+        self.modo_remover = False
+        self.modo_mover = False
+        self.ponto_selecionado = None  # Armazena o índice do ponto sendo movido
         self.cor_curva = (255, 255, 0)
         self.cor_pontos = (255, 0, 0)
         self.cor_linhas = (100, 100, 100)
@@ -13,11 +15,27 @@ class CurveEditor:
     def adicionar_ponto(self, x, y):
         self.pontos_controle.append((x, y))
 
-    def remover_ponto(self, x, y):
+    def remover_ponto(self, posicao):
         for ponto in self.pontos_controle:
-            if abs(ponto[0] - x) < 10 and abs(ponto[1] - y) < 10:
+            if (posicao[0] - ponto[0]) ** 2 + (posicao[1] - ponto[1]) ** 2 <= 100:
                 self.pontos_controle.remove(ponto)
                 break
+
+    def selecionar_ponto(self, posicao):
+        """Seleciona um ponto próximo para movimentação."""
+        for i, ponto in enumerate(self.pontos_controle):
+            if (posicao[0] - ponto[0]) ** 2 + (posicao[1] - ponto[1]) ** 2 <= 100:
+                self.ponto_selecionado = i
+                return
+
+    def mover_ponto(self, posicao):
+        """Move o ponto selecionado para a nova posição."""
+        if self.ponto_selecionado is not None:
+            self.pontos_controle[self.ponto_selecionado] = posicao
+
+    def liberar_ponto(self):
+        """Libera o ponto após o movimento."""
+        self.ponto_selecionado = None
 
     def render_curve(self):
         tela = self.interface.tela
