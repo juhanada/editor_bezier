@@ -15,13 +15,13 @@ Este projeto é um editor interativo de curvas de Bézier desenvolvido em Python
 ### Funcionalidades
 
 - **Adição de pontos de controle**: Permite ao usuário clicar em uma área interativa para adicionar novos pontos de controle.
-- **Movimentação de pontos**: Possibilita arrastar pontos de controle com o mouse para ajustar a curva.
+- **Movimentação de pontos**: Possibilita arrastar pontos de controle com o mouse para ajustar a curva (botão MOVER).
 - **Exibição dos pontos de controle**: Os pontos são representados como pequenos círculos na interface.
 - **Exibição do Polígono de controle**: Conexão dos pontos de controle com segmentos de linha.
 - **Renderização da curva**: A curva é desenhada com suavidade, utilizando interpolção baseada no algoritmo de De Casteljau.
-- **Seleção e remoção de pontos**: Permite excluir pontos de controle selecionados.
+- **Remoção de pontos**: Permite excluir pontos de controle selecionados (botão REMOVER).
 - **Detalhes sobre dos pontos**: Exibição das coordenadas dos pontos de controle na interface.
-- **Opção de redefinição**: Botão ou tecla para limpar todos os pontos e reiniciar a curva.
+- **Opção de redefinição**: Botão ou tecla para limpar todos os pontos e reiniciar a curva (botão LIMPAR).
 - **Atualização em tempo real**: A curva é automaticamente atualizada após qualquer alteração nos pontos de controle.
 
 ## Pré-requisitos
